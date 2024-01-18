@@ -1,0 +1,135 @@
+.detalle-section {
+  background-color: rgb(240, 240, 240);
+  padding: 1rem 3rem;
+  .detalle-imagenes {
+    width: 100%;
+    margin: 0;
+
+    img {
+      height: 80vh;
+      width: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      &:hover {
+        filter: brightness(70%);
+      }
+    }
+
+    .multiple-images {
+      display: grid;
+      gap: 0.5rem;
+      grid-template-columns: repeat(2, 1fr);
+      height: 500px;
+      width: 60%;
+      img {
+        height: 245px;
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
+    }
+  }
+  .detalle-content {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: 4fr 2fr;
+    gap: 2rem;
+    .detalle-body {
+      h3,
+      .detalle-direccion {
+        font-weight: bold;
+      }
+      .descrip-sec {
+        height: 12rem;
+        ul {
+          margin: 1rem 0;
+          width: 100%;
+          list-style: none;
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 1rem;
+          li {
+            text-transform: capitalize;
+            span {
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+  .sidebar-fixed {
+    position: fixed;
+    top: 12%;
+    right: 0%;
+    width: 30%;
+  }
+  .detalle-aside {
+    width: 100%;
+    .titulo {
+      font-weight: normal;
+      font-size: 1rem;
+    }
+    .precio {
+      background-color: white;
+      padding: 0.5rem;
+      margin: 2rem;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      .monto {
+        font-weight: bold;
+        font-size: 1.3rem;
+        color: #011751;
+      }
+    }
+
+    .titulo {
+      font-weight: bold;
+    }
+    .contacto {
+      background-color: white;
+      padding: 0.5rem;
+      margin: 2rem;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+      ul {
+        padding: 0 0 0 1rem;
+        list-style-type: none;
+        li {
+          display: flex;
+          justify-content: start;
+          align-items: center;
+          gap: 0.7rem;
+          font-size: 1.1rem;
+          img {
+            height: 1.1rem;
+          }
+        }
+      }
+      button {
+        background-color: white;
+        text-decoration: none;
+        color: chartreuse;
+        border: 2px solid chartreuse;
+        padding: 0.3rem;
+        border-radius: 10px;
+        width: 100%;
+        font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0.2rem;
+        svg {
+          fill: chartreuse;
+          height: 1.5rem;
+        }
+        &:hover {
+          background-color: chartreuse;
+          color: white;
+          svg {
+            fill: white;
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,68 @@
+.barrios-section {
+  text-align: center;
+  margin-top: 30px;
+  h2 {
+    font-weight: bold;
+  }
+  .barrios-contaiener {
+    margin: 3rem auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    @media (max-width: 599px) {
+      grid-template-columns: 1fr;
+      width: 100%;
+    }
+    @media (min-width: 600px) and (max-width: 1199px) {
+      grid-template-columns: repeat(2, 1fr);
+      width: 100%;
+    }
+    gap: 2rem;
+    width: 90%;
+
+    .barrio-des {
+      position: relative;
+      height: 400px;
+      width: 100%;
+      @media (max-width: 600px) {
+      }
+      &:hover {
+        .barrio-image {
+          filter: brightness(40%);
+        }
+        .barrio-body {
+          p {
+            transform: translate((0, -30%));
+          }
+        }
+      }
+
+      .barrio-image {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+        filter: brightness(80%);
+        border-radius: 10px;
+      }
+      .barrio-body {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate((-50%, -50%));
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        p {
+          margin: 0;
+          color: white;
+          font-size: 1.8rem;
+          font-weight: bold;
+          text-transform: uppercase;
+          width: 40%;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
