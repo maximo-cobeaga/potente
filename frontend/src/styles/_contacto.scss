@@ -1,0 +1,38 @@
+.contacto-section {
+  margin: 0 0 3rem 0;
+  h1 {
+    text-align: center;
+    font-weight: bold;
+    margin: 1rem;
+  }
+  .contacto-oficinas {
+    display: grid;
+    @media (max-width: 599px) {
+      grid-template-columns: 1fr;
+      iframe {
+        width: 95%;
+      }
+    }
+    grid-template-columns: repeat(2, 1fr);
+    margin: 0 auto;
+    text-align: center;
+    .contacto-oficina {
+      iframe {
+        width: 80%;
+      }
+      .ofc-titulo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+      }
+      .ofc-descripcion {
+        list-style: none;
+        margin: 0 auto;
+        padding: 0;
+        li {
+          margin: 0;
+        }
+      }
+    }
+  }
+}

@@ -22,8 +22,8 @@ class PropiedadAdmin(admin.ModelAdmin):
     inlines = [
         ImagenPropiedadAdmin
     ]
-    list_display = ('titulo_propiedad', 'precio',
-                    'autor', 'activa',)
+    list_display = ('titulo_propiedad', 'ficha', 'estado', 'estado_ac', 'precio',
+                    'autor', 'oficina', 'destacar', 'activa',)
 
     def save_model(self, request, obj, form, change):
         if getattr(obj, 'autor', None) is None:

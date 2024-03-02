@@ -52,7 +52,7 @@ export function Navbar({ modal }) {
 
                         }
                         {matches.medium && <div className='navbar-container'>
-                            <div className='navbar-top'>
+                            {/* <div className='navbar-top'>
                                 <div className='navbar-buttons'>
                                     <a href="https://api.whatsapp.com/send/?phone=542235129032&text&type=phone_number&app_absent=0">
                                         <svg style={{
@@ -76,7 +76,7 @@ export function Navbar({ modal }) {
 
 
                                 </div>
-                            </div>
+                            </div> */}
                             <div className={`navbar-down ${fix ? 'fixed' : ''}`}>
                                 <div className='navbar-actions'>
 

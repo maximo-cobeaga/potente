@@ -1,20 +1,50 @@
 import React from 'react'
 
-export function PropDestacada() {
+export function PropDestacada({ propiedad }) {
+    const { imagenes } = propiedad
     return (
-        <div className='prop-destacada'>
-            <a href="/detalle">
-                <img className='image-prop' src="https://quees.mobi/wp-content/uploads/2021/02/derecho-a-la-propiedad.jpg" alt="" />
-                <div className='image-body'>
-                    <div className="image-badge"><span>Venta</span></div>
-                    <div className="body-content">
-                        <h4>USD 177.203</h4>
-                        <p className='image-description'>Playa grande, Edificio vistas al mar. 2 ambientes. Vistas al mar. algo mas. algo mucho mas...</p>
-                        <p className="image-location">Maral Explanada, Mar del Plata, Buenos Aires</p>
-                    </div>
-                </div>
-            </a>
+        <a className='prop-destacada' href={`/detalle/${propiedad.id}`} >
+            <img className='image-prop' src={imagenes[0] != undefined && imagenes[0].imagen} alt={propiedad.titulo} />
+            <div className='propiedad-body'>
+                {propiedad.publicar_precio ? (
+                    <h4 className='precio'>{propiedad.precio.toLocaleString('en', {
+                        style: 'currency',
+                        'currency': propiedad.moneda
+                    })}</h4>
+                ) : (
+                    <h4 className='precio'>Consultar precio</h4>
+                )}
+                <p className="image-location">{propiedad.ubicacion}</p>
+                <p className='image-description'>{`${propiedad.descripcion.slice(0, 100)}...`}</p>
+            </div>
+        </a>
 
-        </div>
+
+
+        // <div className='prop-destacada'>
+        //     <a href={`/detalle/${propiedad.id}`}>
+        //         <img className='image-prop' src={imagenes[0].imagen} alt="" />
+        //         <div className='image-body'>
+        //             <div className="image-badge"><span>{propiedad.estado}</span></div>
+        //             <div className="body-content">
+
+        //                 {propiedad.publicar_precio ?
+        //                     <h4 className='precio'>{propiedad.precio.toLocaleString('en', {
+        //                         style: 'currency',
+        //                         'currency': propiedad.moneda
+        //                     })}</h4>
+        //                     :
+        //                     <h4>Consultar precio</h4>
+        //                 }
+
+        //                 <p className='image-description'>{`${propiedad.descripcion.slice(0, 100)}...`}</p>
+        //                 <p className="image-location">{propiedad.ubicacion}</p>
+        //             </div>
+        //         </div>
+        //     </a>
+
+        // </div>
     )
+
 }
+

@@ -23,17 +23,13 @@
       position: relative;
       height: 400px;
       width: 100%;
+      transition: transform 0.5s;
       @media (max-width: 600px) {
       }
       &:hover {
-        .barrio-image {
-          filter: brightness(40%);
-        }
-        .barrio-body {
-          p {
-            transform: translate((0, -30%));
-          }
-        }
+        border-radius: 10px;
+        box-shadow: 0 0 50px 15px rgb(130, 130, 130);
+        transform: scale(0.95);
       }
 
       .barrio-image {

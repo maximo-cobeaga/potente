@@ -1,10 +1,28 @@
 from rest_framework import serializers
-from .models import Propiedad, ImagenPropiedad
+from .models import Propiedad, ImagenPropiedad, AmenitiesPropiedad, Tipos, Etiquetas
 
 
 class ImagenPropiedadSerializer(serializers.ModelSerializer):
     class Meta:
         model = ImagenPropiedad
+        fields = '__all__'
+
+
+class AmenitiesPropiedadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AmenitiesPropiedad
+        fields = '__all__'
+
+
+class TiposSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tipos
+        fields = '__all__'
+
+
+class EtiquetasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Etiquetas
         fields = '__all__'
 
 
@@ -14,9 +32,11 @@ class PropiedadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Propiedad
         fields = [
+            'id',
             'ficha',
             'titulo_propiedad',
             'tipo_propiedad',
+            'ubicacion',
             'descripcion',
             'estado',
             'estado_ac',
@@ -41,4 +61,6 @@ class PropiedadSerializer(serializers.ModelSerializer):
             'amenities',
             'activa',
             'imagenes',
+            'destacar',
+            'oficina'
         ]

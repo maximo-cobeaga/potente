@@ -45,6 +45,11 @@ LUMINOSIDAD = [
     ('Muy luminoso', 'Muy luminoso'),
 ]
 
+OFICINAS = [
+    ('Cordoba 3719', 'Cordoba 3719'),
+    ('Av. de los Trabajadores 2439', 'Av. de los Trabajadores 2439'),
+]
+
 
 class Etiquetas(models.Model):
     etiqueta = models.CharField(max_length=100)
@@ -61,6 +66,8 @@ class Etiquetas(models.Model):
 
 class Tipos(models.Model):
     tipo = models.CharField(max_length=100)
+    imagen = models.ImageField(
+        upload_to='img', default=None, null=True, blank=True)
 
     def __str__(self):
         return self.tipo
@@ -86,8 +93,9 @@ class AmenitiesPropiedad(models.Model):
 
 
 class Propiedad(models.Model):
-    ficha = models.TextField()
+    ficha = models.TextField(null=True, blank=True)
     titulo_propiedad = models.CharField(max_length=200)
+    ubicacion = models.CharField(max_length=300)
     tipo_propiedad = models.ForeignKey(Tipos, on_delete=models.CASCADE)
     descripcion = models.TextField()
     estado = models.CharField(max_length=50, choices=ESTADOS, default=None)
@@ -95,25 +103,29 @@ class Propiedad(models.Model):
         max_length=50, choices=ESTADOS_A, default=None)
     moneda = models.CharField(max_length=50, choices=MONEDAS, default=None)
     precio = models.IntegerField(null=True)
-    publicar_precio = models.BooleanField()
-    etiquetas = models.ForeignKey(Etiquetas, on_delete=models.CASCADE)
+    publicar_precio = models.BooleanField(default=True)
+    etiquetas = models.ForeignKey(
+        Etiquetas, on_delete=models.CASCADE, null=True, blank=True)
     dormitorios = models.IntegerField(null=True)
     ambientes = models.IntegerField(null=True)
     baños = models.IntegerField(null=True)
-    toilettes = models.IntegerField(null=True)
+    toilettes = models.IntegerField(null=True, blank=True)
     metros_totales = models.FloatField(null=True)
     metros_cubiertos = models.FloatField(null=True)
     metros_descubiertos = models.FloatField(null=True)
     metros_semidescubiertos = models.FloatField(null=True)
     estrenar = models.BooleanField(default=False)
-    antiguedad = models.IntegerField(null=True)
-    expensas = models.FloatField(null=True)
+    antiguedad = models.IntegerField(null=True, blank=True)
+    expensas = models.FloatField(null=True, blank=True)
     orientacion = models.TextField(
-        max_length=25, choices=ORIENTACION, default=None)
-    plantas = models.TextField(max_length=25, choices=PLANTAS, default=None)
+        max_length=25, choices=ORIENTACION, default=None, null=True, blank=True)
+    plantas = models.TextField(
+        max_length=25, choices=PLANTAS, default=None, null=True, blank=True)
     cocheras = models.IntegerField(null=True)
     amenities = models.ManyToManyField(AmenitiesPropiedad)
     activa = models.BooleanField(default=False)
+    oficina = models.CharField(max_length=50, choices=OFICINAS, default=None)
+    destacar = models.BooleanField(default=False)
     autor = models.ForeignKey(
         User, null=True, blank=True, on_delete=models.CASCADE)
 

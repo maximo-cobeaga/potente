@@ -1,30 +1,26 @@
 import { createContext, useState, useEffect } from 'react'
 import { useLocalStorage } from './hooks/useLocalStorage'
-import { obtenerPropiedades } from './api/propiedadesAPI'
+import { obtenerAmenities } from './api/propiedadesAPI'
 
 export const Context = createContext()
 
 export function ContextProvider(props) {
-    const [propiedades, setPropiedades] = useLocalStorage('propiedades', [])
+
+    const [amenitiesApi, setAmenitiesApi] = useLocalStorage('amenities', '[]')
+
     useEffect(() => {
-        async function consulta() {
-            const { data } = await obtenerPropiedades()
-            setPropiedades(data)
+        async function cargarAmenities() {
+            const { data } = await obtenerAmenities()
+            setAmenitiesApi(data)
         }
-        consulta()
+        cargarAmenities()
+
     }, [])
-
-    function formateoDeNumeros(n) {
-        const str = n.toString().split('.')
-        str[0] = str[0]
-    }
-
-
 
 
     return (
         <Context.Provider value={{
-            propiedades,
+            amenitiesApi,
         }}>
             {props.children}
         </Context.Provider>

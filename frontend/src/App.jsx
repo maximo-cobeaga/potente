@@ -8,15 +8,16 @@ import { Home } from './pages/Home'
 import { DetallePropiedad } from './pages/DetallePropiedad'
 import { Categoria } from './pages/Categoria'
 import { Prueba } from './pages/Prueba'
+import { Contacto } from './pages/Contacto'
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/detalle' element={<DetallePropiedad />} />
-        <Route path='/detalle' element={<DetallePropiedad />} />
+        <Route path='/detalle/:id' element={<DetallePropiedad />} />
         <Route path='/categoria/:cat' element={<Categoria />} />
+        <Route path='/contacto' element={<Contacto />} />
         <Route path='/prueba' element={<Prueba />} />
       </Routes>
     </BrowserRouter>

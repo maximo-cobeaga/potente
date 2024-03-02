@@ -1,84 +1,90 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Navbar } from '../components/Navbar'
 import Carousel from 'react-bootstrap/Carousel';
+import { obtenerAmenities } from '../api/propiedadesAPI'
+import { Footer } from '../components/Footer'
+import { FormularioPropiedad } from '../components/FormularioPropiedad'
 
-
-export function DetallePropiedadSm() {
+export function DetallePropiedadSm({ propiedad }) {
     const api_key = 'AIzaSyAf9qdKYg8ab1l1ufJaWJoE7SMC4gwuVtk'
-    const direccion = 'misiones 134, mar del plata, buenos aires'
+    const { imagenes } = propiedad
+    const { amenities } = propiedad
+    const [amenitiesApi, setAmenitiesApi] = useState([])
+
+    useEffect(() => {
+        async function cargarAmenities() {
+            const { data } = await obtenerAmenities()
+            if (amenities !== undefined)
+                setAmenitiesApi(amenities.map(a => data.find(ap => ap.id === a)))
+        }
+        cargarAmenities()
+    }, [propiedad])
+
+
+
+
     return (
         <>
             <Navbar />
             <section className='detalle-section-sm'>
                 <div className="detalle-imagenes-sm">
-
                     <Carousel fade>
-                        <Carousel.Item>
-                            <img src="https://d1v2p1s05qqabi.cloudfront.net/7554638/1697649987.jpg" alt="" />
-                        </Carousel.Item>
-                        <Carousel.Item>
-                            <img src="https://d1v2p1s05qqabi.cloudfront.net/7554638/1697649987.jpg" alt="" />
-                        </Carousel.Item>
+                        {imagenes !== undefined && imagenes.map(i =>
+                            <Carousel.Item key={i.id}>
+                                <img src={i.imagen} alt={propiedad.titulo_propiedad} />
+                            </Carousel.Item>)}
+
                     </Carousel>
 
                 </div>
                 <div className='detalle-body-sm'>
-                    <h1>Propiedad en venta</h1>
-                    <p className='ubicacion'>Direccion 123, Mar del Plata, Buenos Aires</p>
-                    <p className='id'>Id: 23333</p>
-                    <p className='descripcion'>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint, tenetur fugit voluptas quasi doloribus non reiciendis, pariatur architecto, quas laudantium expedita distinctio rerum corrupti molestias ipsum voluptatum! Voluptas, quos architecto.
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Deleniti nostrum consequatur iusto magnam, iste, voluptate in porro nulla libero mollitia blanditiis, quam exercitationem perferendis. Nesciunt cupiditate non in distinctio provident!
+                    <h1>{propiedad.titulo_propiedad}</h1>
+                    {propiedad.publicar_precio ?
+                        <p className='precio'>{propiedad.precio.toLocaleString('en', {
+                            style: 'currency',
+                            'currency': propiedad.moneda
+                        })}</p>
+                        :
+                        <p className='precio'>Consultar precio</p>
+                    }
+                    <p className='ubicacion'>{propiedad.ubicacion}</p>
+                    <p className='id'>Id: {propiedad.id}</p>
+                    <p className='descripcion'>
+                        {propiedad.descripcion}
                     </p>
-                    <div className='lista detalles'>
-                        <h2>Detalles</h2>
+                    <div className='lista'>
+                        <h2>Mas detalles</h2>
                         <ul>
-                            <li><span>Sup. Total: </span> 250m^2</li>
-                            <li><span>Garajes: </span> 2</li>
-                            <li><span>Baños: </span> 2</li>
-                            <li><span>Orientacion: </span> Norte</li>
-                            <li><span>Ambientes: </span> 2</li>
-                            <li><span>Dormitorio: </span> 2</li>
-                            <li><span>Situacion: </span> 2</li>
+                            <li><span>Metros totales: </span>{propiedad.metros_totales}</li>
+                            <li><span>Metros cubiertos: </span>{propiedad.metros_cubiertos}</li>
+                            <li><span>Metros descubiertos: </span>{propiedad.metros_descubiertos}</li>
+                            <li><span>Metros semidescubiertos: </span>{propiedad.metros_semidescubiertos}</li>
+                            <li><span>Baños: </span>{propiedad.baños}</li>
+                            <li><span>Pmbientes: </span>{propiedad.ambientes}</li>
+                            <li><span>Dormitorio: </span>{propiedad.dormitorios}</li>
+                            <li><span>Plantas: </span>{propiedad.plantas}</li>
                         </ul>
                     </div>
-                    <div className='lista servicios'>
-                        <h2>Servicios</h2>
+                    <div className='lista'>
+                        <h2>Mas detalles</h2>
                         <ul>
-                            <li>Agua Corriente</li>
-                            <li>Desague cloacal</li>
-                            <li>Gas natural</li>
-                            <li>Luz</li>
-                            <li>Cocheras</li>
-                            <li>Agua caliente</li>
-                        </ul>
-                    </div>
-                    <div className='lista comodidades'>
-                        <h2>Comodidades</h2>
-                        <ul>
-                            <li>Camara de seguridad</li>
-                            <li>laundry</li>
-                            <li>parrilla</li>
-                            <li>piscina</li>
-                            <li>quincho</li>
-                            <li>solarium</li>
-                            <li>cochera fija cubierta</li>
-                            <li>calefaccion</li>
+                            {amenitiesApi.map(a => <li key={a.id}>{a.tipo}</li>)}
                         </ul>
                     </div>
                     <div className='ubicacion-container'>
-                        <h2>Ubicacion de la propiedad 22334</h2>
                         <iframe
                             width={'100%'}
                             height={450}
                             style={{ border: "0" }}
                             loading="lazy"
                             allowFullScreen
-                            referrerpolicy="no-referrer-when-downgrade"
-                            src={`https://www.google.com/maps/embed/v1/place?key=${api_key}&q=${direccion.replaceAll(' ', '+')}`}>
+                            src={`https://www.google.com/maps/embed/v1/place?key=${api_key}&q=${propiedad.ubicacion !== undefined && propiedad.ubicacion.replaceAll(' ', '+')}`}>
                         </iframe>
                     </div>
+                    <FormularioPropiedad propiedad={propiedad} oficina={propiedad.oficina} />
                 </div>
             </section>
+            <Footer />
         </>
     )
 }
